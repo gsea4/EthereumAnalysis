@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Block implements Comparable{
     private String blockHash;
     private int blockNumber;
@@ -7,6 +9,8 @@ public class Block implements Comparable{
     private String miner;
     private int gasLimit;
     private int gasUsed;
+    private int numberOfTransactions;
+    private ArrayList<Transaction> listOfTransactions;
 
     @Override
     public String toString() {
@@ -27,6 +31,8 @@ public class Block implements Comparable{
         this.miner = miner;
         this.gasLimit = gasLimit;
         this.gasUsed = gasUsed;
+        this.numberOfTransactions = 0;
+        this.listOfTransactions = new ArrayList<Transaction>();
     }
     
     public String getBlockHash() {
@@ -59,6 +65,18 @@ public class Block implements Comparable{
 
     public int getGasUsed() {
         return this.gasUsed;
+    }
+
+    public int getNumberOfTransactions(){
+        return this.numberOfTransactions;
+    }
+
+    public ArrayList<Transaction> getTransactionList(){
+        return this.listOfTransactions;
+    }
+
+    public void increseTransactionCount() {
+        this.numberOfTransactions++;
     }
 
     @Override

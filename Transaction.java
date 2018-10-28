@@ -56,4 +56,9 @@ public class Transaction{
     public long getToken() {
         return this.token;
     }
+
+    public void printTransaction(){
+        System.out.printf("%66s %7d %42s %42s %66s %15d %66s %3d %15d", getBlockHash(), getBlockNumber(), getFrom(), getTo(), getContractID(), getGasPrice(), getTxnHash(), getIndex() ,getToken());
+        System.out.println();
+    }
 }
