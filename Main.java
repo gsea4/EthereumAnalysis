@@ -182,15 +182,58 @@ public class Main{
         // QUESTION 8
         String originateFrom = "0xa455232135b2d6f2e50d7a1131d7e5752f9cb77d";
         startTime = System.nanoTime();
-        long totalGasPrice = 0;
+        long totalGasPriceFrom = 0;
         for(Transaction t : transactions){
             if(originateFrom.equals(t.getFrom())){
-                totalGasPrice += t.getGasPrice();
-                t.printTransaction();
+                totalGasPriceFrom += t.getGasPrice();
+                //t.printTransaction();
             }
         }
-        System.out.println("Total fee: " + totalGasPrice);
+        endTime = System.nanoTime();
+        System.out.println("Total fee: " + totalGasPriceFrom);        
+        System.out.println("Execution time: " + (endTime - startTime)/1000000);
+
+        // QUESTION 9
+        String goTo = "0x7b36d8be6f92818dc30f532ae2a67128b4b92b21";
+        startTime = System.nanoTime();
+        long totalGasPriceTo = 0;
+        for(Transaction t : transactions){
+            if(goTo.equals(t.getTo())){
+                totalGasPriceTo += t.getGasPrice();
+                //t.printTransaction();
+            }
+        }
+        endTime = System.nanoTime();
+        System.out.println("Total fee: " + totalGasPriceTo);       
+        System.out.println("Execution time: " + (endTime - startTime)/1000000);
+
+        // QUESTION 10
+        String contractID = "0xc25b3dbbfe2d84c1195b8b73dc61a306720cbfc6";
+        startTime = System.nanoTime();
+        String largestTran = "";
+        long largestToken = -1;
+        long smallestToken = -1;
+        String smallestTran = "";
+        for(Transaction t : transactions){
+            if(contractID.equals(t.getContractID())){
+                if(smallestToken == -1){
+                    largestToken = smallestToken = t.getToken();
+                    largestTran = smallestTran = t.getTxnHash();
+                    continue;
+                }
+                if(t.getToken() > largestToken){
+                    largestToken = t.getToken();
+                    largestTran = t.getTxnHash();
+                }
+                if(t.getToken() < smallestToken){
+                    smallestToken = t.getToken();
+                    smallestTran = t.getTxnHash();
+                }
+            }
+        }
         endTime = System.nanoTime();
         System.out.println("Execution time: " + (endTime - startTime)/1000000);
+        System.out.println("Largest: " + largestTran);
+        System.out.println("Smallest " + smallestTran);
     }
 }
