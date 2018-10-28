@@ -13,7 +13,7 @@ public class Main{
         String row = "";
         String cvsSplitBy = ",";
 
-        ArrayList<Block> blocks = new ArrayList();
+        List<Block> blocks = new ArrayList<Block>();
         try {
             bReader = new BufferedReader(new FileReader(blockFilePath));
             bReader.readLine();
@@ -39,7 +39,7 @@ public class Main{
                 }
             }
         }
-        ArrayList<Transaction> transactions = new ArrayList();
+        List<Transaction> transactions = new ArrayList<Transaction>();
         try {
             bReader = new BufferedReader(new FileReader(transFilePath));
             bReader.readLine();
@@ -164,10 +164,21 @@ public class Main{
         // QUESTION 6
         int searchBlockNumber = 3110014;
         ArrayList<Transaction> listOfTrans = blockTable.get(searchBlockNumber).getTransactionList();
-        for(Transaction t : listOfTrans){
-            t.printTransaction();
-        }
+        // for(Transaction t : listOfTrans){
+        //     t.printTransaction();
+        // }
 
         // QUESTION 7
+        String transCode = "0xa44d655c8bbf8a2b7ca44a65fb52bfa9d7eadbb6da8e551bdd466abf8c253c0a";
+        startTime = System.nanoTime();
+        for(Transaction t : transactions){
+            if(transCode.equals(t.getTxnHash())){
+                System.out.println(t.getBlockNumber());
+            }
+        }
+        endTime = System.nanoTime();
+        System.out.println("Execution time: " + (endTime - startTime)/1000000);
+
+        // QUESTION 8
     }
 }

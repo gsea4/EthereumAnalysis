@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Block implements Comparable{
+public class Block implements Comparable<Block>{
     private String blockHash;
     private int blockNumber;
     private int size;
@@ -80,7 +80,7 @@ public class Block implements Comparable{
     }
 
     @Override
-    public int compareTo(Object compareBlock){
+    public int compareTo(Block compareBlock){
         int comp = ((Block)compareBlock).getGasUsed();
         return this.gasUsed - comp;
     }
