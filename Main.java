@@ -180,5 +180,17 @@ public class Main{
         System.out.println("Execution time: " + (endTime - startTime)/1000000);
 
         // QUESTION 8
+        String originateFrom = "0xa455232135b2d6f2e50d7a1131d7e5752f9cb77d";
+        startTime = System.nanoTime();
+        long totalGasPrice = 0;
+        for(Transaction t : transactions){
+            if(originateFrom.equals(t.getFrom())){
+                totalGasPrice += t.getGasPrice();
+                t.printTransaction();
+            }
+        }
+        System.out.println("Total fee: " + totalGasPrice);
+        endTime = System.nanoTime();
+        System.out.println("Execution time: " + (endTime - startTime)/1000000);
     }
 }
