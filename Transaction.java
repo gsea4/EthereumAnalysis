@@ -7,9 +7,9 @@ public class Transaction{
     private long gasPrice;
     private String txnHash;
     private int index;
-    private long token;
+    private double token;
 
-    public Transaction(String blockHash, int blockNumber, String from, String to, String contractID, long gasPrice, String txnHash, int index, long token) {
+    public Transaction(String blockHash, int blockNumber, String from, String to, String contractID, long gasPrice, String txnHash, int index, double token) {
         this.blockHash = blockHash;
         this.blockNumber = blockNumber;
         this.from = from;
@@ -53,7 +53,7 @@ public class Transaction{
         return this.index;
     }
 
-    public long getToken() {
+    public double getToken() {
         return this.token;
     }
 

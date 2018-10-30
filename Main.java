@@ -230,7 +230,7 @@ public class Main {
             HashMap<String, AdjencyList> addressList = new HashMap<String, AdjencyList>();
             for(Transaction t : transactions){
                 if(addressList.containsKey(t.getFrom())){
-                    HashMap<String, Long> adjencyList = addressList.get(t.getFrom()).getAdjencyList();
+                    HashMap<String, Double> adjencyList = addressList.get(t.getFrom()).getAdjencyList();
                     if(adjencyList.containsKey(t.getTo())){
                         adjencyList.replace(t.getTo(), adjencyList.get(t.getTo()) + t.getToken());
                         continue;
@@ -245,13 +245,13 @@ public class Main {
             endTime = System.nanoTime();
             System.out.println("Execution time BUILDING GRAPH: " + (endTime - startTime) / 1000000 + "ms\n\n");
 
-            // for(AdjencyList item : addressList.values()){
-            //     System.out.print(item.getBaseAddress() + " -> ");
-            //     for(Map.Entry<String, Long> entry : item.getAdjencyList().entrySet()){
-            //         System.out.print("| " + entry.getKey() + " (" + entry.getValue() +") ");
-            //     }
-            //     System.out.println();
-            // }
+            for(AdjencyList item : addressList.values()){
+                System.out.print(item.getBaseAddress() + " -> ");
+                for(Map.Entry<String, Double> entry : item.getAdjencyList().entrySet()){
+                    System.out.print("| " + entry.getKey() + " (" + entry.getValue() +") ");
+                }
+                System.out.println();
+            }
 
             //BFS("0x2976924b350bcee8263f36d86cebd584d2363c1f", addressList);
             //DFS(addressList);
@@ -312,7 +312,7 @@ public class Main {
                 }
                 transactions.add(new Transaction(trans_input[0], Integer.parseInt(trans_input[1]), trans_input[2],
                         trans_input[3], trans_input[4], (long) Double.parseDouble(trans_input[5]), trans_input[6],
-                        Integer.parseInt(trans_input[7]), (long) Double.parseDouble(trans_input[8])));
+                        Integer.parseInt(trans_input[7]), Double.parseDouble(trans_input[8])));
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -394,176 +394,176 @@ public class Main {
     }
 }
 
-class AdjencyList{
-    private String baseAddress;
-    private HashMap<String, Long> adjencyList;
+// class AdjencyList{
+//     private String baseAddress;
+//     private HashMap<String, Long> adjencyList;
 
-    public AdjencyList(String baseAddress, String toAddress, long token){
-        this.baseAddress = baseAddress;
-        adjencyList = new HashMap<String, Long>();
-        adjencyList.put(toAddress, token);
-    }
+//     public AdjencyList(String baseAddress, String toAddress, long token){
+//         this.baseAddress = baseAddress;
+//         adjencyList = new HashMap<String, Long>();
+//         adjencyList.put(toAddress, token);
+//     }
 
-    public HashMap<String, Long> getAdjencyList() {
-        return adjencyList;
-    }
+//     public HashMap<String, Long> getAdjencyList() {
+//         return adjencyList;
+//     }
 
-    public String getBaseAddress() {
-        return baseAddress;
-    }
-}
+//     public String getBaseAddress() {
+//         return baseAddress;
+//     }
+// }
 
-class Block implements Comparable<Block>{
-    private String blockHash;
-    private int blockNumber;
-    private int size;
-    private String timeStamp;
-    private int difficulty;
-    private String miner;
-    private int gasLimit;
-    private int gasUsed;
-    private int numberOfTransactions;
-    private ArrayList<Transaction> listOfTransactions;
+// class Block implements Comparable<Block>{
+//     private String blockHash;
+//     private int blockNumber;
+//     private int size;
+//     private String timeStamp;
+//     private int difficulty;
+//     private String miner;
+//     private int gasLimit;
+//     private int gasUsed;
+//     private int numberOfTransactions;
+//     private ArrayList<Transaction> listOfTransactions;
 
-    @Override
-    public String toString() {
-        return getBlockHash() + getBlockNumber() + getSize() + getTimeStamp() + + getDifficulty() + getMiner() + getGasLimit() +  getGasUsed();
-    }
+//     @Override
+//     public String toString() {
+//         return getBlockHash() + getBlockNumber() + getSize() + getTimeStamp() + + getDifficulty() + getMiner() + getGasLimit() +  getGasUsed();
+//     }
 
-    public String printBlock(){
-        return String.format("%66s %7d %5d %10s %10d %42s %9d %8d \n", getBlockHash(), getBlockNumber(), getSize(), getTimeStamp(), getDifficulty(), getMiner(), getGasLimit(), getGasUsed());
-    }
+//     public String printBlock(){
+//         return String.format("%66s %7d %5d %10s %10d %42s %9d %8d \n", getBlockHash(), getBlockNumber(), getSize(), getTimeStamp(), getDifficulty(), getMiner(), getGasLimit(), getGasUsed());
+//     }
 
-    public String printBlockWithTrans(){
-        return String.format("%66s %7d %5d %10s %10d %42s %9d %8d %7d\n", getBlockHash(), getBlockNumber(), getSize(), getTimeStamp(), getDifficulty(), getMiner(), getGasLimit(), getGasUsed(), getNumberOfTransactions());
-    }
+//     public String printBlockWithTrans(){
+//         return String.format("%66s %7d %5d %10s %10d %42s %9d %8d %7d\n", getBlockHash(), getBlockNumber(), getSize(), getTimeStamp(), getDifficulty(), getMiner(), getGasLimit(), getGasUsed(), getNumberOfTransactions());
+//     }
     
-    public Block(String blockHash, int blockNumber, int size, String timeStamp, int difficulty, String miner, int gasLimit, int gasUsed){
-        this.blockHash = blockHash;
-        this.blockNumber = blockNumber;
-        this.size = size;
-        this.timeStamp = timeStamp;
-        this.difficulty = difficulty;
-        this.miner = miner;
-        this.gasLimit = gasLimit;
-        this.gasUsed = gasUsed;
-        this.numberOfTransactions = 0;
-        this.listOfTransactions = new ArrayList<Transaction>();
-    }
+//     public Block(String blockHash, int blockNumber, int size, String timeStamp, int difficulty, String miner, int gasLimit, int gasUsed){
+//         this.blockHash = blockHash;
+//         this.blockNumber = blockNumber;
+//         this.size = size;
+//         this.timeStamp = timeStamp;
+//         this.difficulty = difficulty;
+//         this.miner = miner;
+//         this.gasLimit = gasLimit;
+//         this.gasUsed = gasUsed;
+//         this.numberOfTransactions = 0;
+//         this.listOfTransactions = new ArrayList<Transaction>();
+//     }
     
-    public String getBlockHash() {
-        return this.blockHash;
-    }
+//     public String getBlockHash() {
+//         return this.blockHash;
+//     }
 
-    public int getBlockNumber() {
-        return this.blockNumber;
-    }
+//     public int getBlockNumber() {
+//         return this.blockNumber;
+//     }
 
-    public int getSize() {
-        return this.size;
-    }
+//     public int getSize() {
+//         return this.size;
+//     }
 
-    public String getTimeStamp() {
-        return this.timeStamp;
-    }
+//     public String getTimeStamp() {
+//         return this.timeStamp;
+//     }
 
-    public int getDifficulty() {
-        return this.difficulty;
-    }
+//     public int getDifficulty() {
+//         return this.difficulty;
+//     }
 
-    public String getMiner() {
-        return this.miner;
-    }
+//     public String getMiner() {
+//         return this.miner;
+//     }
 
-    public int getGasLimit() {
-        return this.gasLimit;
-    }
+//     public int getGasLimit() {
+//         return this.gasLimit;
+//     }
 
-    public int getGasUsed() {
-        return this.gasUsed;
-    }
+//     public int getGasUsed() {
+//         return this.gasUsed;
+//     }
 
-    public int getNumberOfTransactions(){
-        return this.numberOfTransactions;
-    }
+//     public int getNumberOfTransactions(){
+//         return this.numberOfTransactions;
+//     }
 
-    public ArrayList<Transaction> getTransactionList(){
-        return this.listOfTransactions;
-    }
+//     public ArrayList<Transaction> getTransactionList(){
+//         return this.listOfTransactions;
+//     }
 
-    public void increseTransactionCount() {
-        this.numberOfTransactions++;
-    }
+//     public void increseTransactionCount() {
+//         this.numberOfTransactions++;
+//     }
 
-    @Override
-    public int compareTo(Block compareBlock){
-        int comp = ((Block)compareBlock).getGasUsed();
-        return this.gasUsed - comp;
-    }
-}
+//     @Override
+//     public int compareTo(Block compareBlock){
+//         int comp = ((Block)compareBlock).getGasUsed();
+//         return this.gasUsed - comp;
+//     }
+// }
 
-class Transaction{
-    private String blockHash;
-    private int blockNumber;
-    private String from;
-    private String to;
-    private String contractID;
-    private long gasPrice;
-    private String txnHash;
-    private int index;
-    private long token;
+// class Transaction{
+//     private String blockHash;
+//     private int blockNumber;
+//     private String from;
+//     private String to;
+//     private String contractID;
+//     private long gasPrice;
+//     private String txnHash;
+//     private int index;
+//     private long token;
 
-    public Transaction(String blockHash, int blockNumber, String from, String to, String contractID, long gasPrice, String txnHash, int index, long token) {
-        this.blockHash = blockHash;
-        this.blockNumber = blockNumber;
-        this.from = from;
-        this.to = to;
-        this.contractID = contractID;
-        this.gasPrice = gasPrice;
-        this.txnHash = txnHash;
-        this.index = index;
-        this.token = token;
-    }
+//     public Transaction(String blockHash, int blockNumber, String from, String to, String contractID, long gasPrice, String txnHash, int index, long token) {
+//         this.blockHash = blockHash;
+//         this.blockNumber = blockNumber;
+//         this.from = from;
+//         this.to = to;
+//         this.contractID = contractID;
+//         this.gasPrice = gasPrice;
+//         this.txnHash = txnHash;
+//         this.index = index;
+//         this.token = token;
+//     }
     
-    public String getBlockHash() {
-        return this.blockHash;
-    }
+//     public String getBlockHash() {
+//         return this.blockHash;
+//     }
 
-    public int getBlockNumber() {
-        return this.blockNumber;
-    }
+//     public int getBlockNumber() {
+//         return this.blockNumber;
+//     }
 
-    public String getFrom() {
-        return this.from;
-    }
+//     public String getFrom() {
+//         return this.from;
+//     }
 
-    public String getTo() {
-        return this.to;
-    }
+//     public String getTo() {
+//         return this.to;
+//     }
 
-    public String getContractID() {
-        return this.contractID;
-    }
+//     public String getContractID() {
+//         return this.contractID;
+//     }
 
-    public long getGasPrice() {
-        return this.gasPrice;
-    }
+//     public long getGasPrice() {
+//         return this.gasPrice;
+//     }
 
-    public String getTxnHash() {
-        return this.txnHash;
-    }
+//     public String getTxnHash() {
+//         return this.txnHash;
+//     }
 
-    public int getIndex() {
-        return this.index;
-    }
+//     public int getIndex() {
+//         return this.index;
+//     }
 
-    public long getToken() {
-        return this.token;
-    }
+//     public long getToken() {
+//         return this.token;
+//     }
 
-    public String printTransaction(){
-        // System.out.printf("%66s %7d %42s %42s %66s %15d %66s %3d %15d", getBlockHash(), getBlockNumber(), getFrom(), getTo(), getContractID(), getGasPrice(), getTxnHash(), getIndex() ,getToken());
-        // System.out.println();
-        return String.format("%66s %7d %42s %42s %42s %15d %66s %5d %18d \n", getBlockHash(), getBlockNumber(), getFrom(), getTo(), getContractID(), getGasPrice(), getTxnHash(), getIndex() ,getToken());
-    }
-}
+//     public String printTransaction(){
+//         // System.out.printf("%66s %7d %42s %42s %66s %15d %66s %3d %15d", getBlockHash(), getBlockNumber(), getFrom(), getTo(), getContractID(), getGasPrice(), getTxnHash(), getIndex() ,getToken());
+//         // System.out.println();
+//         return String.format("%66s %7d %42s %42s %42s %15d %66s %5d %18d \n", getBlockHash(), getBlockNumber(), getFrom(), getTo(), getContractID(), getGasPrice(), getTxnHash(), getIndex() ,getToken());
+//     }
+// }
