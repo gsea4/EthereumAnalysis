@@ -18,9 +18,11 @@ public class Block implements Comparable<Block>{
     }
 
     public String printBlock(){
-        //System.out.printf("%66s %7d %5d %10s %10d %42s %9d %8d", getBlockHash(), getBlockNumber(), getSize(), getTimeStamp(), getDifficulty(), getMiner(), getGasLimit(), getGasUsed());
-        // System.out.println();
         return String.format("%66s %7d %5d %10s %10d %42s %9d %8d \n", getBlockHash(), getBlockNumber(), getSize(), getTimeStamp(), getDifficulty(), getMiner(), getGasLimit(), getGasUsed());
+    }
+
+    public String printBlockWithTrans(){
+        return String.format("%66s %7d %5d %10s %10d %42s %9d %8d %7d\n", getBlockHash(), getBlockNumber(), getSize(), getTimeStamp(), getDifficulty(), getMiner(), getGasLimit(), getGasUsed(), getNumberOfTransactions());
     }
     
     public Block(String blockHash, int blockNumber, int size, String timeStamp, int difficulty, String miner, int gasLimit, int gasUsed){

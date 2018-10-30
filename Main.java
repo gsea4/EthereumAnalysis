@@ -23,16 +23,14 @@ public class Main {
             long endTime = System.nanoTime();
 
             fileWriter.write("Question 1: List up all the blocks by their gas used in an increasing order\n");
-            fileWriter.write("Execution time: " + (endTime - startTime) / 1000000 + "\n");
             fileWriter.write(String.format("%-66s %-7s %5s %-7s %-10s %-42s %-9s %-8s\n", "Block Hash", "Block #",
                     "Size", "Time Stamp", "Difficulty", "Miner", "Gas Limit", "Gas Used"));
             for (int i = 0; i < 100; i++) {
                 fileWriter.write(blocks.get(i).printBlock());
             }
-            
+            fileWriter.write("Execution time: " + (endTime - startTime) / 1000000 + "ms\n\n");           
 
-            // QUESTION 2
-            
+            // QUESTION 2    
             startTime = System.nanoTime();
             HashMap<Integer, Block> blockTable = new HashMap<Integer, Block>();
             for (Block b : blocks) {
@@ -57,12 +55,12 @@ public class Main {
             endTime = System.nanoTime();
 
             fileWriter.write("\n\nQuestion 2: List up all the blocks by their # transactions in an increasing order\n");
-            fileWriter.write("Execution time: " + (endTime - startTime) / 1000000 + "\n");
-            fileWriter.write(String.format("%-66s %-7s %5s %-7s %-10s %-42s %-9s %-8s\n", "Block Hash", "Block #",
-                    "Size", "Time Stamp", "Difficulty", "Miner", "Gas Limit", "Gas Used"));
+            fileWriter.write(String.format("%-66s %-7s %5s %-7s %-10s %-42s %-9s %-8s %-7s\n", "Block Hash", "Block #",
+                    "Size", "Time Stamp", "Difficulty", "Miner", "Gas Limit", "Gas Used", "# Trans"));
             for (int i = 0; i < 100; i++) {
-                fileWriter.write(blocks.get(i).printBlock());
+                fileWriter.write(blocks.get(i).printBlockWithTrans());
             }
+            fileWriter.write("Execution time: " + (endTime - startTime) / 1000000 + "ms\n\n");
 
             // QUESTION 3
             startTime = System.nanoTime();
@@ -74,12 +72,12 @@ public class Main {
             endTime = System.nanoTime();
 
             fileWriter.write("\n\nQuestion 3: List up all the transactions by their transaction fee in an increasing order\n");
-            fileWriter.write("Execution time: " + (endTime - startTime) / 1000000 + "\n");
             fileWriter.write(String.format("%-66s %-7s %-42s %-42s %-42s %-15s %-66s %-5s %-18s\n", "Block Hash", "Block #", "From",
                     "To", "Contract ID", "Gas Price", "Txn Hash", "Index", "Token"));
             for (int i = 0; i < 100; i++) {
                 fileWriter.write(transactions.get(i).printTransaction());
             }
+            fileWriter.write("Execution time: " + (endTime - startTime) / 1000000 + "ms\n\n");
             
 
             // QUESTION 4
@@ -98,12 +96,12 @@ public class Main {
             endTime = System.nanoTime();
 
             fileWriter.write("\n\nQuestion 4: List up all the transactions per block in an increasing order of gas fees\n");
-            fileWriter.write("Execution time: " + (endTime - startTime) / 1000000 + "\n");
             fileWriter.write(String.format("%-66s %-7s %-42s %-42s %-42s %-15s %-66s %-5s %-18s\n", "Block Hash", "Block #", "From",
                     "To", "Contract ID", "Gas Price", "Txn Hash", "Index", "Token"));
             for (int i = 0; i < 100; i++) {
                 fileWriter.write(transactions.get(i).printTransaction());
             }
+            fileWriter.write("Execution time: " + (endTime - startTime) / 1000000 + "ms\n\n");
 
             // QUESTION 5
             startTime = System.nanoTime();
@@ -122,12 +120,12 @@ public class Main {
             endTime = System.nanoTime();
 
             fileWriter.write("\n\nQuestion 5: List up all the transactions in groups per contract address in an increasing order of the block#\n");
-            fileWriter.write("Execution time: " + (endTime - startTime) / 1000000 + "\n");
             fileWriter.write(String.format("%-66s %-7s %-42s %-42s %-42s %-15s %-66s %-5s %-18s\n", "Block Hash", "Block #", "From",
                     "To", "Contract ID", "Gas Price", "Txn Hash", "Index", "Token"));        
             for (int i = 0; i < 100; i++) {
                 fileWriter.write(transactions.get(i).printTransaction());
             }
+            fileWriter.write("Execution time: " + (endTime - startTime) / 1000000 + "ms\n\n");
 
             // QUESTION 6
             int searchBlockNumber = 3110014;
@@ -135,12 +133,12 @@ public class Main {
             ArrayList<Transaction> listOfTrans = blockTable.get(searchBlockNumber).getTransactionList();
             endTime = System.nanoTime();
             fileWriter.write("\n\nQuestion 6: Search for a particular block# (3110014 in this case) and then display its transactions list\n");
-            fileWriter.write("Execution time: " + (endTime - startTime) / 1000000 + "\n");
             fileWriter.write(String.format("%-66s %-7s %-42s %-42s %-42s %-15s %-66s %-5s %-18s\n", "Block Hash", "Block #", "From",
                     "To", "Contract ID", "Gas Price", "Txn Hash", "Index", "Token"));      
             for(Transaction t : listOfTrans){
                 fileWriter.write(t.printTransaction());
             }
+            fileWriter.write("Execution time: " + (endTime - startTime) / 1000000 + "ms\n\n");
 
             // QUESTION 7
             fileWriter.write("\n\nQuestion 7: Search for a particular transaction hash code for an index within a block# and then display transaction fee and block#\n");
@@ -155,7 +153,7 @@ public class Main {
                 }
             }
             endTime = System.nanoTime();
-            fileWriter.write("Execution time: " + (endTime - startTime) / 1000000 + "\n");
+            fileWriter.write("Execution time: " + (endTime - startTime) / 1000000 + "ms\n\n");
             // System.out.println("Execution time: " + (endTime - startTime) / 1000000);
 
             // QUESTION 8
@@ -174,7 +172,7 @@ public class Main {
             }
             endTime = System.nanoTime();
             fileWriter.write("Total fee: " + totalGasPriceFrom + "\n");
-            fileWriter.write("Execution time: " + (endTime - startTime) / 1000000 + "\n");
+            fileWriter.write("Execution time: " + (endTime - startTime) / 1000000 + "ms\n\n");
 
             // QUESTION 9
             fileWriter.write("\n\nQuestion 9: Identify and list up all the transactions destined to a particular public-key (node) and their total transaction fee\n");
@@ -192,7 +190,7 @@ public class Main {
             }
             endTime = System.nanoTime();
             fileWriter.write("Total fee: " + totalGasPriceTo + "\n");
-            fileWriter.write("Execution time: " + (endTime - startTime) / 1000000 + "\n");
+            fileWriter.write("Execution time: " + (endTime - startTime) / 1000000 + "ms\n\n");
 
             // QUESTION 10
             fileWriter.write("\n\nQuestion 10: Identify the transaction id in a particular node (contract id) with the largest (smallest) value of tokens\n");
@@ -221,9 +219,9 @@ public class Main {
                 }
             }
             endTime = System.nanoTime();
-            fileWriter.write("Execution time: " + (endTime - startTime) / 1000000 + "\n");
             fileWriter.write("Largest: " + largestTran + "\n");
             fileWriter.write("Smallest " + smallestTran + "\n");
+            fileWriter.write("Execution time: " + (endTime - startTime) / 1000000 + "ms\n\n");
         } catch (IOException e) {
             System.out.print(e);
         }finally{
